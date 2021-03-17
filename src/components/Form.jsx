@@ -1,6 +1,9 @@
 import React from 'react'
+import { useGlobalContext } from '../context'
 
-const Form = ({ inputTxt, setInputTxt, todos, setTodos }) => {
+const Form = () => {
+    const { inputTxt, setInputTxt, todos, setTodos } = useGlobalContext()
+
     const inputTxtHandler = (evt) => {
         setInputTxt(evt.target.value)
     }

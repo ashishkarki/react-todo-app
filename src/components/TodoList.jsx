@@ -1,7 +1,10 @@
 import React from 'react'
+import { useGlobalContext } from '../context'
 import Todo from './Todo'
 
-const TodoList = ({ todos }) => {
+const TodoList = () => {
+    const { todos } = useGlobalContext()
+
     return (
         <div className="todo-container">
             <ul className="todo-list">
