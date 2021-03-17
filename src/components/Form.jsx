@@ -1,34 +1,15 @@
 import React from 'react'
-import { useGlobalContext } from '../context'
+import { todo_status, useGlobalContext } from '../context'
 
 const Form = () => {
-    const { inputTxt, setInputTxt, todos, setTodos } = useGlobalContext()
-
-    const inputTxtHandler = (evt) => {
-        setInputTxt(evt.target.value)
-    }
-
-    const submitHandler = (evt) => {
-        evt.preventDefault()
-
-        setTodos([
-            ...todos,
-            {
-                text: inputTxt,
-                completed: false,
-                id: new Date().getMilliseconds(),
-            }
-        ])
-
-        setInputTxt('')
-    }
+    const { inputTxt, setInputTxt, todoSubmitHandler, statusChangeHandler } = useGlobalContext()
 
     return (
-        <form onSubmit={ submitHandler }>
+        <form onSubmit={ (evt) => todoSubmitHandler(evt) }>
             <input type='text'
                 value={ inputTxt }
                 className='todo-input'
-                onChange={ inputTxtHandler }
+                onChange={ (evt) => setInputTxt(evt.target.value) }
             />
 
             <button className='todo-button' type='submit'>
@@ -36,10 +17,19 @@ const Form = () => {
             </button>
 
             <div className='select'>
-                <select name='todos' className='filter-todo'>
-                    <option value='all'>All</option>
-                    <option value='completed'>Completed</option>
-                    <option value='uncompleted'>Uncompleted</option>
+                <select
+                    name='todos'
+                    className='filter-todo'
+                    onChange={ (event) => statusChangeHandler(event) }>
+                    <option value={ `${ todo_status.ALL }` }>
+                        All
+                    </option>
+                    <option value={ `${ todo_status.COMPLETED }` }>
+                        Completed
+                    </option>
+                    <option value={ `${ todo_status.INCOMPLETE }` }>
+                        Incomplete
+                    </option>
                 </select>
             </div>
         </form>

@@ -2,20 +2,22 @@ import React from 'react'
 import { useGlobalContext } from '../context'
 
 const Todo = ({ todoItem }) => {
-    const { greeting, deleteHandler } = useGlobalContext()
+    const { todoDeleteHandler, todoCompleteHandler } = useGlobalContext()
 
     return (
         <div className='todo'>
-            {greeting }
-            <li className='todo-item'>
+            <li className={ `todo-item ${ todoItem.completed ? 'completed' : '' }` }>
                 { todoItem.text }
             </li>
 
-            <button className='complete-btn'>
+            <button
+                onClick={ () => todoCompleteHandler(todoItem.id) }
+                className='complete-btn'>
                 <i className='fas fa-check'></i>
             </button>
 
-            <button onClick={ () => deleteHandler(todoItem.id) } className='trash-btn'>
+            <button
+                onClick={ () => todoDeleteHandler(todoItem.id) } className='trash-btn'>
                 <i className='fas fa-trash'></i>
             </button>
         </div>

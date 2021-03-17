@@ -3,13 +3,13 @@ import { useGlobalContext } from '../context'
 import Todo from './Todo'
 
 const TodoList = () => {
-    const { todos } = useGlobalContext()
+    const { filteredTodos } = useGlobalContext()
 
     return (
         <div className="todo-container">
             <ul className="todo-list">
                 {
-                    todos.map(todo => {
+                    filteredTodos.map(todo => {
                         return <Todo key={ todo.id } todoItem={ todo } />
                     })
                 }
